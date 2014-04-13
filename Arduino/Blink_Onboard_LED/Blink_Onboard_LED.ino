@@ -14,9 +14,17 @@
    digitalWrite(LED, HIGH);  //turns the LED on
    delay(250);              //waits for a quarter of a second
    digitalWrite(LED, LOW);  //turns the LED off
-   delay(50);             //waits for a really short time
+   delay(10);             //waits for a really short time
    digitalWrite(LED, HIGH);  //turns the LED on
    delay(250);              //waits for a quarter of a second
    digitalWrite(LED, LOW);  //turns the LED off
-   delay(1000);             //waits for one second
+   delay(10);             //waits for a really short time
+   digitalWrite(LED, HIGH);  //turns the LED on
+   delay(250);              //waits for a quarter of a second
+   digitalWrite(LED, LOW);  //turns the LED off
+   delay(10);             //waits for a really short time
+   digitalWrite(LED, HIGH);  //turns the LED on
+   delay(250);              //waits for a quarter of a second
+   digitalWrite(LED, LOW);  //turns the LED off
+   delay(500);             //waits for half a second
  }
