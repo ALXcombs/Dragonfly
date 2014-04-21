@@ -1,0 +1,103 @@
+// kodek.pde - ver 1.0 - S107G IR packet transmitter
+//
+// Connect anode (+) of IR LED to 5V and connect
+// cathode (-) to pin 8 using a 100 ohm resistor
+
+#define LED 8
+#define STATUS 13
+
+bool loopOK;
+
+void setup()
+{
+  pinMode(STATUS,OUTPUT);
+  digitalWrite(STATUS,LOW);
+  pinMode(LED,OUTPUT);
+  digitalWrite(LED,HIGH); // turns off LED / LOW turns on
+  loopOK = true;
+}   
+
+byte sendPacket(byte yaw,byte pitch,byte throttle,byte trim)
+{
+  static byte markL,countP,countR,one,zero;
+  static bool data;
+  static const byte maskB[] = {1,2,4,8,16,32,64,128};
+  static byte dataP[4];
+
+  digitalWrite(STATUS,HIGH);
+  dataP[0] = yaw;
+  dataP[1] = pitch;
+  dataP[2] = throttle;
+  dataP[3] = trim;
+  markL = 77;
+  countP = 4;
+  countR = 8;
+  one = 0;
+  zero = 0;
+  data = true;
+  while(markL--)
+  {
+    digitalWrite(LED,LOW);
+    delayMicroseconds(10);
+    digitalWrite(LED,HIGH);
+    delayMicroseconds(10);
+  }
+  delayMicroseconds(1998);
+  markL = 12;
+  while(data)
+  {
+    while(markL--)
+    {
+      digitalWrite(LED,LOW);
+      delayMicroseconds(10);
+      digitalWrite(LED,HIGH);
+      delayMicroseconds(10);
+    }
+    markL = 12;
+    if(dataP[4-countP] & maskB[--countR])
+    {
+      one++;
+      delayMicroseconds(688);
+    }
+    else
+    {
+      zero++;
+      delayMicroseconds(288);
+    }
+    if(!countR)
+    {
+      countR = 8;
+      countP--;
+    }
+    if(!countP)
+    {
+      data = false;
+    }
+  }
+  while(markL--)
+  {
+    digitalWrite(LED,LOW);
+    delayMicroseconds(10);
+    digitalWrite(LED,HIGH);
+    delayMicroseconds(10);
+  }
+  digitalWrite(STATUS,LOW);
+  return((.1-.014296-one*.000688-zero*.000288)*1000); // in ms.
+}
+  
+void loop()
+{
+  static int i;
+  while(loopOK)
+  {
+    for(i=0;i<128;i++)
+    {
+      delay(sendPacket(63,63,i,63));
+    }
+    for(i=127;i>=0;i--)
+    {
+      delay(sendPacket(63,63,i,63));
+    }
+    loopOK = false;
+  }
+}
