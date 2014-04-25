@@ -73,6 +73,8 @@ byte sendPacket(byte cmds[]){
 
 byte cmds[] = {63, 63, 0, 63};
 //yaw, pitch, throttle, trim
+// 127 is max
+// pitch 0 is forward
 
 void setup(){
     Serial.begin(9600);

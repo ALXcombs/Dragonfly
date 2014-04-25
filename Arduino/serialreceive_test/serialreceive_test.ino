@@ -3,18 +3,17 @@
 // Make sure you click on serial monitor
 // after you upload
 
-const int LED = 13; //LED connected to
-                     //digital pin 13
+const int IRLED = 8; // IR LED connected to pin 8
+const int STATUS = 13; // LED connected to pin 13
+
 int val = 0;
-
 int i;
-
 int count;
 
-void setup() {
-  
-  pinMode(LED, OUTPUT);  //sets the digital 
+void setup() {  
+  pinMode(IRLED, OUTPUT);  //sets the digital 
                          //pin as output
+  pinMode(STATUS, OUTPUT);
   
   Serial.begin(9600);  // open the serial port to send
                        // data back to the computer at
@@ -28,13 +27,13 @@ void loop() {
                         
   if (val != -1) {
     
-    count = val - 48;
+    count = val - 48;    //48 is the ascii code for 0
     
     for (i = 0; i < count; i++) {
     
-      digitalWrite(LED, HIGH);  //turn LED ON
+      digitalWrite(IRLED, HIGH);  //turn IRLED ON
       delay(250);              //waits for a quarter of a second
-      digitalWrite(LED, LOW);   //turn LED OFF
+      digitalWrite(IRLED, LOW);   //turn IRLED OFF
       delay(250);              //waits for a quarter of a second
     }
   
