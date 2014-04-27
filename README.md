@@ -9,3 +9,5 @@ Use the test_flight.py program as a flight template.
 
 Run it with:
 python test_flight.py
+
+<img src="https://raw.githubusercontent.com/ALXcombs/Dragonfly/master/media/Arduino%20Box.jpg" height = "474" width = "633">
