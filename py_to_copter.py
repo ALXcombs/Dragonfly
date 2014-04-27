@@ -43,5 +43,16 @@ class Heli(object):
 
 
     def land(self):
+        self.update_flight_params(63,60,40,0)
+        time.sleep(.5)
         self.update_flight_params(63, 63, 0, 63)
         time.sleep(0.01)
+
+    def hover(self, seconds):
+        self.update_flight_params(63,60,75,0)
+        time.sleep(seconds)
+
+
+
+
+
