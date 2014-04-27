@@ -1,6 +1,6 @@
  // Example 01 : Blinking LED
  
- const int LED = 4; //LED connected to
+ const int LED = 9; //LED connected to
                      //digital pin 13
  
  void setup()
