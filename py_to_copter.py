@@ -23,6 +23,10 @@ class Heli(object):
         self.throttle = 0
         self.trim = 63
 
+        # Other params
+        self.speak = False
+        self.log = True
+
 
     def update_flight_params(self, yaw, pitch, throttle, trim):
         """this sends commands through the serial port
@@ -39,20 +43,21 @@ class Heli(object):
         
         self._s.write(msg)
         self._s.flush()
-        print('sent {}'.format(msg))
+        if self.log == True:
+            print('sent {}'.format(msg))
 
 
     def land(self):
-        self.update_flight_params(63,60,40,0)
-        time.sleep(2)
-        self.update_flight_params(63, 63, 0, 63)
-        time.sleep(0.01)
+        if self.speak == True:
+            os.system("say 'Landing'")
+        while self.throttle > 35:
+            self.throttle = self.throttle - 5
+            self.update_flight_params(self.yaw, self.pitch, self.throttle,
+                                        self.trim)
+            time.sleep(.5)
+            self.update_flight_params(63, 63, 0, 63)
 
     def hover(self, seconds):
         self.update_flight_params(63,60,75,0)
         time.sleep(seconds)
-
-
-
-
 
