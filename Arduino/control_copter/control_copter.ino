@@ -14,7 +14,6 @@ The commands are 4 values in sequence: yaw, pitch, throttle, trim
 */
 
 const int IRLED = 8; // The pin the IR LED is connected to
-const int IRLED2 = 9; //Second LED
 const int STATUS = 13; // The pin the status LED is on
 byte cmds[] = {63, 63, 0, 63}; // Default flight commands
 
@@ -40,10 +39,8 @@ byte sendPacket(byte cmds[]){
   markL = 77;
   while(markL--){
     digitalWrite(IRLED, LOW);
-    digitalWrite(IRLED2, LOW);
     delayMicroseconds(10);
     digitalWrite(IRLED, HIGH);
-    digitalWrite(IRLED2, HIGH);
     delayMicroseconds(10);
   }
 
@@ -55,10 +52,8 @@ byte sendPacket(byte cmds[]){
     // transmit a binary 0 or 1
     while(markL--){
       digitalWrite(IRLED, LOW);
-      digitalWrite(IRLED2, LOW);
       delayMicroseconds(10);
       digitalWrite(IRLED, HIGH);
-       digitalWrite(IRLED2, HIGH);
       delayMicroseconds(10);
     }
     markL = 12;
@@ -82,10 +77,8 @@ byte sendPacket(byte cmds[]){
 
   while(markL--){
     digitalWrite(IRLED, LOW);
-    digitalWrite(IRLED2, LOW);
     delayMicroseconds(10);
     digitalWrite(IRLED, HIGH);
-    digitalWrite(IRLED2, HIGH);
     delayMicroseconds(10);
   }
 
@@ -101,9 +94,6 @@ void setup(){
     digitalWrite(STATUS, LOW);
     pinMode(IRLED,  OUTPUT);
     digitalWrite(IRLED,  HIGH);
-    pinMode(IRLED2,  OUTPUT);
-    digitalWrite(IRLED2,  HIGH);
-    pinMode(IRLED2,  OUTPUT);
 }
 
 
