@@ -44,7 +44,7 @@ class Heli(object):
 
     def land(self):
         self.update_flight_params(63,60,40,0)
-        time.sleep(.5)
+        time.sleep(2)
         self.update_flight_params(63, 63, 0, 63)
         time.sleep(0.01)
 
